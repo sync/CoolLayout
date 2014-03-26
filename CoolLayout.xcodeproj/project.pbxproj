@@ -24,6 +24,7 @@
 		5F326A8718E2BB8F0046CF4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6218E2BB8F0046CF4B /* CoreData.framework */; };
 		5F326A8F18E2BB8F0046CF4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F326A8D18E2BB8F0046CF4B /* InfoPlist.strings */; };
 		5F326A9118E2BB8F0046CF4B /* CoolLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9018E2BB8F0046CF4B /* CoolLayoutTests.m */; };
+		5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		5F326A8C18E2BB8F0046CF4B /* CoolLayoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoolLayoutTests-Info.plist"; sourceTree = "<group>"; };
 		5F326A8E18E2BB8F0046CF4B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5F326A9018E2BB8F0046CF4B /* CoolLayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoolLayoutTests.m; sourceTree = "<group>"; };
+		5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCollectionViewLayout.h; sourceTree = "<group>"; };
+		5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCollectionViewLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,8 @@
 				5F326A6E18E2BB8F0046CF4B /* AMAppDelegate.m */,
 				5F326A7618E2BB8F0046CF4B /* AMMasterViewController.h */,
 				5F326A7718E2BB8F0046CF4B /* AMMasterViewController.m */,
+				5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */,
+				5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */,
 				5F326A7018E2BB8F0046CF4B /* Main.storyboard */,
 				5F326A7C18E2BB8F0046CF4B /* Images.xcassets */,
 				5F326A7318E2BB8F0046CF4B /* CoolLayout.xcdatamodeld */,
@@ -263,6 +268,7 @@
 				5F326A6F18E2BB8F0046CF4B /* AMAppDelegate.m in Sources */,
 				5F326A7518E2BB8F0046CF4B /* CoolLayout.xcdatamodeld in Sources */,
 				5F326A6B18E2BB8F0046CF4B /* main.m in Sources */,
+				5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

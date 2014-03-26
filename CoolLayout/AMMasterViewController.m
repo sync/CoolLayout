@@ -5,6 +5,7 @@
 #import "AMMasterViewController.h"
 
 static const NSString *cellIdentifier = @"CellIdentifier";
+static const NSString *headerIdentifier = @"HeaderIdentifier";
 
 @implementation AMMasterViewController
 
@@ -13,6 +14,7 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:(NSString *)headerIdentifier];
     //[self seedData];
 }
 
@@ -63,6 +65,25 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    {
+        UICollectionReusableView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:(NSString *)headerIdentifier forIndexPath:indexPath];
+        headerView.backgroundColor = [UIColor yellowColor];
+        return headerView;
+    }
+    
+    return nil;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeMake(CGRectGetWidth(collectionView.frame), 60.f);
+}
+
+#pragma mark - UICollectionViewDelegate
 
 #pragma mark - Fetched results controller
 

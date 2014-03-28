@@ -22,11 +22,11 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
 {
     for (NSInteger i =0; i<100; i++)
     {
-        [self insertNewObject:nil];
+        [self insertNewObject];
     }
 }
 
-- (void)insertNewObject:(id)sender
+- (void)insertNewObject
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
@@ -89,7 +89,8 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-    if (_fetchedResultsController != nil) {
+    if (_fetchedResultsController != nil)
+    {
         return _fetchedResultsController;
     }
     
@@ -114,7 +115,8 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
     self.fetchedResultsController = aFetchedResultsController;
     
 	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
+	if (![self.fetchedResultsController performFetch:&error])
+    {
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);

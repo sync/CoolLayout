@@ -3,6 +3,7 @@
 //
 
 #import "AMMasterViewController.h"
+#import "AMCollectionViewLayout.h"
 
 static const NSString *cellIdentifier = @"CellIdentifier";
 static const NSString *headerIdentifier = @"HeaderIdentifier";
@@ -12,6 +13,9 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    AMCollectionViewLayout *layout = (AMCollectionViewLayout *)self.collectionViewLayout;
+    layout.floatingHeader = YES;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:(NSString *)headerIdentifier];

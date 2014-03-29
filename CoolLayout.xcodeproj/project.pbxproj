@@ -123,10 +123,8 @@
 			children = (
 				5F326A6D18E2BB8F0046CF4B /* AMAppDelegate.h */,
 				5F326A6E18E2BB8F0046CF4B /* AMAppDelegate.m */,
-				5F326A7618E2BB8F0046CF4B /* AMMasterViewController.h */,
-				5F326A7718E2BB8F0046CF4B /* AMMasterViewController.m */,
-				5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */,
-				5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */,
+				5FD32B7318E64A65008FCD18 /* Controller */,
+				5FD32B7418E64A7A008FCD18 /* View */,
 				5F326A7018E2BB8F0046CF4B /* Main.storyboard */,
 				5F326A7C18E2BB8F0046CF4B /* Images.xcassets */,
 				5F326A7318E2BB8F0046CF4B /* CoolLayout.xcdatamodeld */,
@@ -161,6 +159,24 @@
 				5F326A8D18E2BB8F0046CF4B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5FD32B7318E64A65008FCD18 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5F326A7618E2BB8F0046CF4B /* AMMasterViewController.h */,
+				5F326A7718E2BB8F0046CF4B /* AMMasterViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		5FD32B7418E64A7A008FCD18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */,
+				5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

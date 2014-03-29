@@ -22,26 +22,26 @@
 {
     NSMutableArray *layoutAttributesToUpdate = [NSMutableArray arrayWithArray:layoutAttributesForElements];
     
-    NSMutableIndexSet *missingSections = [NSMutableIndexSet indexSet];
+    NSMutableSet *missingSections = [NSMutableSet set];
     for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesToUpdate)
     {
         if (layoutAttributes.representedElementCategory == UICollectionElementCategoryCell)
         {
-            [missingSections addIndex:layoutAttributes.indexPath.section];
+            [missingSections addObject:@(layoutAttributes.indexPath.section)];
         }
     }
     
     for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesToUpdate)
     {
-        if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader])
+        if (layoutAttributes.representedElementKind == UICollectionElementKindSectionHeader)
         {
-            [missingSections removeIndex:layoutAttributes.indexPath.section];
+            [missingSections removeObject:@(layoutAttributes.indexPath.section)];
         }
     }
     
-    for (NSInteger idx = 0; idx < missingSections.count; idx++)
+    for (NSNumber *section in missingSections)
     {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:idx];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section.integerValue];
         UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
         [layoutAttributesToUpdate addObject:layoutAttributes];
     }

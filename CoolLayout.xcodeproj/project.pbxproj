@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A79F52E9B214B0C85A9E092 /* libPods-CoolLayoutTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB275B0166046828B727F38 /* libPods-CoolLayoutTests.a */; };
 		5F326A5D18E2BB8F0046CF4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A5C18E2BB8F0046CF4B /* Foundation.framework */; };
 		5F326A5F18E2BB8F0046CF4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A5E18E2BB8F0046CF4B /* CoreGraphics.framework */; };
 		5F326A6118E2BB8F0046CF4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6018E2BB8F0046CF4B /* UIKit.framework */; };
@@ -24,6 +25,10 @@
 		5F326A8718E2BB8F0046CF4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6218E2BB8F0046CF4B /* CoreData.framework */; };
 		5F326A8F18E2BB8F0046CF4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F326A8D18E2BB8F0046CF4B /* InfoPlist.strings */; };
 		5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */; };
+		5FD32B7618E64E7A008FCD18 /* AMTimeAgoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */; };
+		5FD32B7918E64F48008FCD18 /* AMTimeAgoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */; };
+		5FD32B7B18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD32B7A18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m */; };
+		85E7C1AE8CD44F3AAA202C56 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CB409F026A4371BC4F00DA /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EC51CDA49214C28AB3FED6E /* Pods-CoolLayoutTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoolLayoutTests.xcconfig"; path = "Pods/Pods-CoolLayoutTests.xcconfig"; sourceTree = "<group>"; };
+		54737FC9C1F641D887573C2F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		5F326A5918E2BB8F0046CF4B /* CoolLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F326A5C18E2BB8F0046CF4B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5F326A5E18E2BB8F0046CF4B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,6 +66,12 @@
 		5F326A8E18E2BB8F0046CF4B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCollectionViewLayout.h; sourceTree = "<group>"; };
 		5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCollectionViewLayout.m; sourceTree = "<group>"; };
+		5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMTimeAgoHeaderView.xib; sourceTree = "<group>"; };
+		5FD32B7718E64F48008FCD18 /* AMTimeAgoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMTimeAgoHeaderView.h; path = ../../../../Desktop/AMTimeAgoHeaderView.h; sourceTree = "<group>"; };
+		5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMTimeAgoHeaderView.m; path = ../../../../Desktop/AMTimeAgoHeaderView.m; sourceTree = "<group>"; };
+		5FD32B7A18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTimeAgoHeaderViewSpec.m; sourceTree = "<group>"; };
+		8FB275B0166046828B727F38 /* libPods-CoolLayoutTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoolLayoutTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0CB409F026A4371BC4F00DA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +83,7 @@
 				5F326A6318E2BB8F0046CF4B /* CoreData.framework in Frameworks */,
 				5F326A6118E2BB8F0046CF4B /* UIKit.framework in Frameworks */,
 				5F326A5D18E2BB8F0046CF4B /* Foundation.framework in Frameworks */,
+				85E7C1AE8CD44F3AAA202C56 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +95,7 @@
 				5F326A8718E2BB8F0046CF4B /* CoreData.framework in Frameworks */,
 				5F326A8618E2BB8F0046CF4B /* UIKit.framework in Frameworks */,
 				5F326A8518E2BB8F0046CF4B /* Foundation.framework in Frameworks */,
+				2A79F52E9B214B0C85A9E092 /* libPods-CoolLayoutTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +109,8 @@
 				5F326A8A18E2BB8F0046CF4B /* CoolLayoutTests */,
 				5F326A5B18E2BB8F0046CF4B /* Frameworks */,
 				5F326A5A18E2BB8F0046CF4B /* Products */,
+				54737FC9C1F641D887573C2F /* Pods.xcconfig */,
+				1EC51CDA49214C28AB3FED6E /* Pods-CoolLayoutTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +131,8 @@
 				5F326A6018E2BB8F0046CF4B /* UIKit.framework */,
 				5F326A6218E2BB8F0046CF4B /* CoreData.framework */,
 				5F326A8318E2BB8F0046CF4B /* XCTest.framework */,
+				C0CB409F026A4371BC4F00DA /* libPods.a */,
+				8FB275B0166046828B727F38 /* libPods-CoolLayoutTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				5F326A8B18E2BB8F0046CF4B /* Supporting Files */,
+				5FD32B7A18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m */,
 			);
 			path = CoolLayoutTests;
 			sourceTree = "<group>";
@@ -175,6 +195,9 @@
 			children = (
 				5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */,
 				5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */,
+				5FD32B7718E64F48008FCD18 /* AMTimeAgoHeaderView.h */,
+				5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */,
+				5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -186,9 +209,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F326A9418E2BB8F0046CF4B /* Build configuration list for PBXNativeTarget "CoolLayout" */;
 			buildPhases = (
+				3F331E0D52214EB4888D655F /* Check Pods Manifest.lock */,
 				5F326A5518E2BB8F0046CF4B /* Sources */,
 				5F326A5618E2BB8F0046CF4B /* Frameworks */,
 				5F326A5718E2BB8F0046CF4B /* Resources */,
+				16A8D5C9D6DC45DABBF0E24E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,9 +228,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F326A9718E2BB8F0046CF4B /* Build configuration list for PBXNativeTarget "CoolLayoutTests" */;
 			buildPhases = (
+				AF3C0F3A3E764D3BAFC004E4 /* Check Pods Manifest.lock */,
 				5F326A7E18E2BB8F0046CF4B /* Sources */,
 				5F326A7F18E2BB8F0046CF4B /* Frameworks */,
 				5F326A8018E2BB8F0046CF4B /* Resources */,
+				F5DD664AF3064E459A88A23A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD32B7618E64E7A008FCD18 /* AMTimeAgoHeaderView.xib in Resources */,
 				5F326A7D18E2BB8F0046CF4B /* Images.xcassets in Resources */,
 				5F326A6918E2BB8F0046CF4B /* InfoPlist.strings in Resources */,
 				5F326A7218E2BB8F0046CF4B /* Main.storyboard in Resources */,
@@ -272,6 +300,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		16A8D5C9D6DC45DABBF0E24E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F331E0D52214EB4888D655F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AF3C0F3A3E764D3BAFC004E4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F5DD664AF3064E459A88A23A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-CoolLayoutTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5F326A5518E2BB8F0046CF4B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -281,6 +372,7 @@
 				5F326A6F18E2BB8F0046CF4B /* AMAppDelegate.m in Sources */,
 				5F326A7518E2BB8F0046CF4B /* CoolLayout.xcdatamodeld in Sources */,
 				5F326A6B18E2BB8F0046CF4B /* main.m in Sources */,
+				5FD32B7918E64F48008FCD18 /* AMTimeAgoHeaderView.m in Sources */,
 				5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD32B7B18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +495,7 @@
 		};
 		5F326A9518E2BB8F0046CF4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54737FC9C1F641D887573C2F /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -415,6 +509,7 @@
 		};
 		5F326A9618E2BB8F0046CF4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54737FC9C1F641D887573C2F /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -428,6 +523,7 @@
 		};
 		5F326A9818E2BB8F0046CF4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EC51CDA49214C28AB3FED6E /* Pods-CoolLayoutTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoolLayout.app/CoolLayout";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -450,6 +546,7 @@
 		};
 		5F326A9918E2BB8F0046CF4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EC51CDA49214C28AB3FED6E /* Pods-CoolLayoutTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoolLayout.app/CoolLayout";
 				FRAMEWORK_SEARCH_PATHS = (

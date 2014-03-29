@@ -4,9 +4,10 @@
 
 #import "AMMasterViewController.h"
 #import "AMCollectionViewLayout.h"
+#import "AMTimeAgoHeaderView.h"
+#import "NSDate+TimeAgo.h"
 
 static const NSString *cellIdentifier = @"CellIdentifier";
-static const NSString *headerIdentifier = @"HeaderIdentifier";
 
 @implementation AMMasterViewController
 
@@ -18,7 +19,7 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
     layout.floatingHeader = YES;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:(NSString *)headerIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];
     //[self seedData];
 }
 
@@ -74,8 +75,11 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
-        UICollectionReusableView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:(NSString *)headerIdentifier forIndexPath:indexPath];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][indexPath.section];
+        
+        AMTimeAgoHeaderView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier] forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor yellowColor];
+        [headerView configureWithName:sectionInfo.name];
         return headerView;
     }
     
@@ -114,7 +118,7 @@ static const NSString *headerIdentifier = @"HeaderIdentifier";
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"timeStamp.timeAgo" cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

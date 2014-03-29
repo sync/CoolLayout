@@ -23,7 +23,6 @@
 		5F326A8618E2BB8F0046CF4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6018E2BB8F0046CF4B /* UIKit.framework */; };
 		5F326A8718E2BB8F0046CF4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6218E2BB8F0046CF4B /* CoreData.framework */; };
 		5F326A8F18E2BB8F0046CF4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F326A8D18E2BB8F0046CF4B /* InfoPlist.strings */; };
-		5F326A9118E2BB8F0046CF4B /* CoolLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9018E2BB8F0046CF4B /* CoolLayoutTests.m */; };
 		5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +57,6 @@
 		5F326A8318E2BB8F0046CF4B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		5F326A8C18E2BB8F0046CF4B /* CoolLayoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoolLayoutTests-Info.plist"; sourceTree = "<group>"; };
 		5F326A8E18E2BB8F0046CF4B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5F326A9018E2BB8F0046CF4B /* CoolLayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoolLayoutTests.m; sourceTree = "<group>"; };
 		5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCollectionViewLayout.h; sourceTree = "<group>"; };
 		5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCollectionViewLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,7 +149,6 @@
 		5F326A8A18E2BB8F0046CF4B /* CoolLayoutTests */ = {
 			isa = PBXGroup;
 			children = (
-				5F326A9018E2BB8F0046CF4B /* CoolLayoutTests.m */,
 				5F326A8B18E2BB8F0046CF4B /* Supporting Files */,
 			);
 			path = CoolLayoutTests;
@@ -276,7 +273,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F326A9118E2BB8F0046CF4B /* CoolLayoutTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +469,7 @@
 				5F326A9618E2BB8F0046CF4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5F326A9718E2BB8F0046CF4B /* Build configuration list for PBXNativeTarget "CoolLayoutTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +478,7 @@
 				5F326A9918E2BB8F0046CF4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

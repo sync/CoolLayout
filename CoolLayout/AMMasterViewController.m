@@ -16,7 +16,7 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     
     AMCollectionViewLayout *layout = (AMCollectionViewLayout *)self.collectionViewLayout;
-    layout.floatingHeader = YES;
+    layout.stickyHeader = YES;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];

@@ -6,6 +6,6 @@
 
 @interface AMCollectionViewLayout : UICollectionViewFlowLayout
 
-@property (nonatomic, assign, getter = hasFloatingHeader) BOOL floatingHeader;
+@property (nonatomic, assign, getter = hasStickyHeader) BOOL stickyHeader;
 
 @end

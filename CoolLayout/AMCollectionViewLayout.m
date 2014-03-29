@@ -8,10 +8,22 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSMutableArray *updatedAttributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+    NSArray *updatedAttributes = [super layoutAttributesForElementsInRect:rect];
+    
+    if ([self hasStickyHeader])
+    {
+        updatedAttributes = [self updateLayoutAttributesforFloatingHeadersInRect:rect withCurrentElementsAttributes:updatedAttributes];
+    }
+    
+    return updatedAttributes;
+}
+
+- (NSArray *)updateLayoutAttributesforFloatingHeadersInRect:(CGRect)rect withCurrentElementsAttributes:(NSArray *)layoutAttributesForElements
+{
+    NSMutableArray *layoutAttributesToUpdate = [NSMutableArray arrayWithArray:layoutAttributesForElements];
     
     NSMutableIndexSet *missingSections = [NSMutableIndexSet indexSet];
-    for (UICollectionViewLayoutAttributes *layoutAttributes in updatedAttributes)
+    for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesToUpdate)
     {
         if (layoutAttributes.representedElementCategory == UICollectionElementCategoryCell)
         {
@@ -19,7 +31,7 @@
         }
     }
     
-    for (UICollectionViewLayoutAttributes *layoutAttributes in updatedAttributes)
+    for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesToUpdate)
     {
         if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader])
         {
@@ -31,10 +43,10 @@
     {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:idx];
         UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
-        [updatedAttributes addObject:layoutAttributes];
+        [layoutAttributesToUpdate addObject:layoutAttributes];
     }
     
-    for (UICollectionViewLayoutAttributes *layoutAttributes in updatedAttributes)
+    for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesToUpdate)
     {
         if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader])
         {
@@ -67,21 +79,18 @@
             }
             
             CGPoint origin = layoutAttributes.frame.origin;
-            if ([self hasFloatingHeader])
-            {
-                CGFloat topHeaderHeight = (cellsExist) ? CGRectGetHeight(layoutAttributes.frame) : 0;
-                CGFloat bottomHeaderHeight = CGRectGetHeight(layoutAttributes.frame);
-                CGRect frameWithEdgeInsets = UIEdgeInsetsInsetRect(layoutAttributes.frame,
-                                                                   self.collectionView.contentInset);
-                origin = frameWithEdgeInsets.origin;
-                origin.y = MIN(
-                               MAX(
-                                   self.collectionView.contentOffset.y + self.collectionView.contentInset.top,
-                                   (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight)
-                                   ),
+            CGFloat topHeaderHeight = (cellsExist) ? CGRectGetHeight(layoutAttributes.frame) : 0;
+            CGFloat bottomHeaderHeight = CGRectGetHeight(layoutAttributes.frame);
+            
+            CGFloat maxY = MAX(self.collectionView.contentOffset.y + self.collectionView.contentInset.top,
+                               (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight)
+                               );
+            
+            CGFloat minY = MIN(maxY,
                                (CGRectGetMaxY(lastObjectAttrs.frame) - bottomHeaderHeight)
                                );
-            }
+            
+            origin.y = minY;
             
             layoutAttributes.zIndex = 1024;
             
@@ -92,7 +101,7 @@
         }
     }
     
-    return updatedAttributes;
+    return [layoutAttributesToUpdate copy];
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBound

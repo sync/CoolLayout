@@ -247,6 +247,16 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
                 }
             }
         }
+        
+        // even if a section has no content (cell) header still need to be displayed when sticky
+        if (numSections == 0 && [self hasStickyHeader] && [self shouldDisplayHeaderInSection:0])
+        {
+            attributes = [self precomputedLayoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
+            if (attributes)
+            {
+                [supplementaryHeaderInformation setObject:attributes forKey:indexPath];
+            }
+        }
     }
     
     [layoutInformation setObject:cellInformation forKey:AMCollectionViewLayoutInformationCellKey];

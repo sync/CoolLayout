@@ -47,18 +47,15 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
         attrributesFrame.size = [self referenceSizeForCollectionHeader];
         
         CGFloat yOrigin = self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
+        
+        yOrigin += [self collectionViewHeaderIntersectionYDiff];
+        
         attrributesFrame.origin.y = yOrigin;
         layoutAttributes.frame = attrributesFrame;
     }
     else if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         layoutAttributes = [super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
-        if ([self shouldDisplayCollectionViewHeader])
-        {
-            CGRect frame = layoutAttributes.frame;
-            frame.origin.y += [self elementsYDiffForCollectionViewHeader];
-            layoutAttributes.frame = frame;
-        }
         
         if ([self hasStickyHeader])
         {
@@ -93,7 +90,9 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
             CGFloat topHeaderHeight = (cellsExist) ? CGRectGetHeight(layoutAttributes.frame) : 0;
             CGFloat bottomHeaderHeight = CGRectGetHeight(layoutAttributes.frame);
             
-            CGFloat maxY = MAX(self.collectionView.contentOffset.y + self.collectionView.contentInset.top + [self elementsYDiffForCollectionViewHeader],
+            CGFloat elementsYdiff = MAX(0, [self elementsYDiffForCollectionViewHeader] + [self collectionViewHeaderIntersectionYDiff]);
+            
+            CGFloat maxY = MAX(self.collectionView.contentOffset.y + self.collectionView.contentInset.top + elementsYdiff,
                                (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight)
                                );
             
@@ -109,6 +108,12 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
                 .origin = origin,
                 .size = layoutAttributes.frame.size
             };
+        }
+        else if ([self shouldDisplayCollectionViewHeader])
+        {
+            CGRect frame = layoutAttributes.frame;
+            frame.origin.y += [self elementsYDiffForCollectionViewHeader];
+            layoutAttributes.frame = frame;
         }
     }
     else
@@ -129,7 +134,6 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     return self.layoutInformation[kind][indexPath];
 }
-
 #pragma mark - Collection View header
 
 - (BOOL)shouldDisplayCollectionViewHeader
@@ -156,6 +160,67 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     }
     
     return 0;
+}
+
+- (CGFloat)collectionViewHeaderIntersectionYDiff
+{
+    CGFloat yDiff = 0;
+    
+    if ([self.collectionView numberOfSections] > 0 && ![self hasStickyCollectionHeader])
+    {
+        UICollectionViewLayoutAttributes *cellOrHeaderAttributes = [self firstHeaderFooterOrCellLayoutAttributes];
+        
+        CGFloat minYelement = CGRectGetMinY(cellOrHeaderAttributes.frame);
+        
+        CGFloat topSectionInset = [self insetForSection:0].top;
+        CGFloat headerHeigh = CGRectGetHeight([self layoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].frame);
+        if (minYelement > topSectionInset + headerHeigh)
+        {
+            yDiff = topSectionInset + headerHeigh - minYelement;
+        }
+    }
+    
+    return yDiff;
+}
+
+- (UIEdgeInsets)insetForSection:(NSInteger)section
+{
+    id <AMCollectionViewLayoutDelegate> delegate = (id<AMCollectionViewLayoutDelegate>)self.collectionView.delegate;
+    return [delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:section];
+}
+
+- (UICollectionViewLayoutAttributes *)firstHeaderFooterOrCellLayoutAttributes
+{
+    NSInteger numberOfSections = [self.collectionView numberOfSections];
+    
+    UICollectionViewLayoutAttributes *firstObjectAttrs = nil;
+    for (NSInteger section = 0; section < numberOfSections; section++) {
+        NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+        
+        // use the header
+        firstObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                atIndexPath:firstObjectIndexPath];
+        
+        if (!firstObjectAttrs)
+        {
+            // use the footer
+            firstObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                    atIndexPath:firstObjectIndexPath];
+        }
+        
+        if (!firstObjectAttrs)
+        {
+            // use cell data
+            firstObjectAttrs = [self layoutAttributesForItemAtIndexPath:firstObjectIndexPath];
+        }
+        
+        if (firstObjectAttrs)
+        {
+            break;
+        }
+    }
+    
+    return firstObjectAttrs;
 }
 
 #pragma mark - Header and Footer

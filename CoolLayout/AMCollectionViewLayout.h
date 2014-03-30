@@ -13,6 +13,7 @@ extern NSString * const AMCollectionViewLayoutElementKindHeader;
 
 @interface AMCollectionViewLayout : UICollectionViewFlowLayout
 
+@property (nonatomic, assign, getter = hasStickyCollectionHeader) BOOL stickyCollectionHeader;
 @property (nonatomic, assign, getter = hasStickyHeader) BOOL stickyHeader;
 
 @end

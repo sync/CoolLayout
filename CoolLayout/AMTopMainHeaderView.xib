@@ -9,6 +9,19 @@
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="49D-ow-NvF" customClass="AMTopMainHeaderView">
             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Main Top Header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4OZ-oP-CaG">
+                    <rect key="frame" x="80" y="14" width="140" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="4OZ-oP-CaG" secondAttribute="centerX" id="5ze-qM-6cA"/>
+                <constraint firstAttribute="centerY" secondItem="4OZ-oP-CaG" secondAttribute="centerY" constant="0.5" id="pPb-Ol-gxd"/>
+            </constraints>
         </collectionReusableView>
     </objects>
 </document>

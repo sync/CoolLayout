@@ -6,6 +6,7 @@
 #import "AMCollectionViewLayout.h"
 #import "AMTimeAgoHeaderView.h"
 #import "NSDate+TimeAgo.h"
+#import "AMTopMainHeaderView.h"
 
 static const NSString *cellIdentifier = @"CellIdentifier";
 
@@ -20,6 +21,8 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"AMTopMainHeaderView" bundle:nil] forSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier]];
+    
     //[self seedData];
 }
 
@@ -73,7 +76,13 @@ static const NSString *cellIdentifier = @"CellIdentifier";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    if ([kind isEqualToString:AMCollectionViewLayoutElementKindHeader])
+    {
+        AMTopMainHeaderView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier] forIndexPath:indexPath];
+        headerView.backgroundColor = [UIColor purpleColor];
+        return headerView;
+    }
+    else if ([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][indexPath.section];
         
@@ -86,12 +95,19 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     return nil;
 }
 
+#pragma mark - UICollectionViewDelegateFlowLayout
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeMake(CGRectGetWidth(collectionView.frame), 60.f);
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - AMCollectionViewLayoutDelegate 
+
+- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForHeaderInlayout:(UICollectionViewLayout*)collectionViewLayout
+{
+    return CGSizeMake(CGRectGetWidth(collectionView.frame), 40.f);
+}
 
 #pragma mark - Fetched results controller
 

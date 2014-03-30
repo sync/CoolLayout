@@ -4,6 +4,13 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const AMCollectionViewLayoutElementKindHeader;
+
+@protocol AMCollectionViewLayoutDelegate <UICollectionViewDelegateFlowLayout>
+@optional
+- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForHeaderInlayout:(UICollectionViewLayout*)collectionViewLayout;
+@end
+
 @interface AMCollectionViewLayout : UICollectionViewFlowLayout
 
 @property (nonatomic, assign, getter = hasStickyHeader) BOOL stickyHeader;

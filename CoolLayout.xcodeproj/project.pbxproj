@@ -25,6 +25,8 @@
 		5F326A8718E2BB8F0046CF4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F326A6218E2BB8F0046CF4B /* CoreData.framework */; };
 		5F326A8F18E2BB8F0046CF4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F326A8D18E2BB8F0046CF4B /* InfoPlist.strings */; };
 		5F326A9C18E2C7390046CF4B /* AMCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */; };
+		5F48E21018E6CCF500880751 /* AMTopMainHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F48E20F18E6CCF500880751 /* AMTopMainHeaderView.m */; };
+		5F48E21318E6CD4500880751 /* AMTopMainHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F48E21218E6CD4500880751 /* AMTopMainHeaderView.xib */; };
 		5FD32B7618E64E7A008FCD18 /* AMTimeAgoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */; };
 		5FD32B7918E64F48008FCD18 /* AMTimeAgoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */; };
 		5FD32B7B18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD32B7A18E64FEC008FCD18 /* AMTimeAgoHeaderViewSpec.m */; };
@@ -66,6 +68,9 @@
 		5F326A8E18E2BB8F0046CF4B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCollectionViewLayout.h; sourceTree = "<group>"; };
 		5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCollectionViewLayout.m; sourceTree = "<group>"; };
+		5F48E20E18E6CCF500880751 /* AMTopMainHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTopMainHeaderView.h; sourceTree = "<group>"; };
+		5F48E20F18E6CCF500880751 /* AMTopMainHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTopMainHeaderView.m; sourceTree = "<group>"; };
+		5F48E21218E6CD4500880751 /* AMTopMainHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMTopMainHeaderView.xib; sourceTree = "<group>"; };
 		5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMTimeAgoHeaderView.xib; sourceTree = "<group>"; };
 		5FD32B7718E64F48008FCD18 /* AMTimeAgoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMTimeAgoHeaderView.h; path = ../../../../Desktop/AMTimeAgoHeaderView.h; sourceTree = "<group>"; };
 		5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMTimeAgoHeaderView.m; path = ../../../../Desktop/AMTimeAgoHeaderView.m; sourceTree = "<group>"; };
@@ -181,6 +186,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5F48E21118E6CD1700880751 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				5FD32B7718E64F48008FCD18 /* AMTimeAgoHeaderView.h */,
+				5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */,
+				5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */,
+				5F48E20E18E6CCF500880751 /* AMTopMainHeaderView.h */,
+				5F48E20F18E6CCF500880751 /* AMTopMainHeaderView.m */,
+				5F48E21218E6CD4500880751 /* AMTopMainHeaderView.xib */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		5FD32B7318E64A65008FCD18 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,9 +213,7 @@
 			children = (
 				5F326A9A18E2C7390046CF4B /* AMCollectionViewLayout.h */,
 				5F326A9B18E2C7390046CF4B /* AMCollectionViewLayout.m */,
-				5FD32B7718E64F48008FCD18 /* AMTimeAgoHeaderView.h */,
-				5FD32B7818E64F48008FCD18 /* AMTimeAgoHeaderView.m */,
-				5FD32B7518E64E7A008FCD18 /* AMTimeAgoHeaderView.xib */,
+				5F48E21118E6CD1700880751 /* Headers */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -285,6 +301,7 @@
 			files = (
 				5FD32B7618E64E7A008FCD18 /* AMTimeAgoHeaderView.xib in Resources */,
 				5F326A7D18E2BB8F0046CF4B /* Images.xcassets in Resources */,
+				5F48E21318E6CD4500880751 /* AMTopMainHeaderView.xib in Resources */,
 				5F326A6918E2BB8F0046CF4B /* InfoPlist.strings in Resources */,
 				5F326A7218E2BB8F0046CF4B /* Main.storyboard in Resources */,
 			);
@@ -368,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F48E21018E6CCF500880751 /* AMTopMainHeaderView.m in Sources */,
 				5F326A7818E2BB8F0046CF4B /* AMMasterViewController.m in Sources */,
 				5F326A6F18E2BB8F0046CF4B /* AMAppDelegate.m in Sources */,
 				5F326A7518E2BB8F0046CF4B /* CoolLayout.xcdatamodeld in Sources */,

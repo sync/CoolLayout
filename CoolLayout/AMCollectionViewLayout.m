@@ -44,13 +44,13 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
         layoutAttributes.zIndex = 2048;
         
         CGRect attrributesFrame = CGRectZero;
-        attrributesFrame.size = [self referenceSizeForCollectionHeader];
+        attrributesFrame.size = [self referenceSizeForCollectionTopMainHeader];
         
         CGFloat yOrigin = 0;
         if ([self hasStickyTopMainHeader])
         {
-            yOrigin = self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
-        
+            yOrigin = [self adjustedCollectionViewContentOffset];
+            
             if ([self isTopMainHeaderCollapsible])
             {
                 yOrigin += [self collectionViewTopMainHeaderIntersectionYDiff];
@@ -100,7 +100,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
             
             CGFloat elementsYdiff = MAX(0, [self elementsYDiffForCollectionViewTopMainHeader] + [self collectionViewTopMainHeaderIntersectionYDiff]);
             
-            CGFloat maxY = MAX(self.collectionView.contentOffset.y + self.collectionView.contentInset.top + elementsYdiff,
+            CGFloat maxY = MAX([self adjustedCollectionViewContentOffset] + elementsYdiff,
                                (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight)
                                );
             
@@ -115,7 +115,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
         }
         
         layoutAttributes.zIndex = 1024;
-
+        
         
         layoutAttributes.frame = (CGRect){
             .origin = origin,
@@ -140,14 +140,22 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     return self.layoutInformation[kind][indexPath];
 }
+
+#pragma mark - Utilities
+
+- (CGFloat)adjustedCollectionViewContentOffset
+{
+    return self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
+}
+
 #pragma mark - Collection View Top Main Header
 
 - (BOOL)shouldDisplayCollectionViewTopMainHeader
 {
-    return[self referenceSizeForCollectionHeader].height >= 0;
+    return[self referenceSizeForCollectionTopMainHeader].height >= 0;
 }
 
-- (CGSize)referenceSizeForCollectionHeader
+- (CGSize)referenceSizeForCollectionTopMainHeader
 {
     id <AMCollectionViewLayoutDelegate> delegate = (id<AMCollectionViewLayoutDelegate>)self.collectionView.delegate;
     if ([delegate respondsToSelector:@selector(collectionView:referenceSizeForTopMainHeaderInLayout:)])
@@ -162,7 +170,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     if ([self shouldDisplayCollectionViewTopMainHeader])
     {
-        return [self referenceSizeForCollectionHeader].height;
+        return [self referenceSizeForCollectionTopMainHeader].height;
     }
     
     return 0;
@@ -174,16 +182,8 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     
     if ([self.collectionView numberOfSections] > 0 && [self isTopMainHeaderCollapsible])
     {
-        UICollectionViewLayoutAttributes *cellOrHeaderAttributes = [self firstHeaderFooterOrCellLayoutAttributes];
-        
-        CGFloat minYelement = CGRectGetMinY(cellOrHeaderAttributes.frame);
-        
         CGFloat topSectionInset = [self insetForSection:0].top;
-        CGFloat headerHeight = CGRectGetHeight([self layoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].frame);
-        if (minYelement > topSectionInset + headerHeight)
-        {
-            yDiff = topSectionInset + headerHeight - minYelement;
-        }
+        yDiff = MAX(0, [self adjustedCollectionViewContentOffset] - topSectionInset) * -1;
     }
     
     return yDiff;
@@ -193,40 +193,6 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     id <AMCollectionViewLayoutDelegate> delegate = (id<AMCollectionViewLayoutDelegate>)self.collectionView.delegate;
     return [delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:section];
-}
-
-- (UICollectionViewLayoutAttributes *)firstHeaderFooterOrCellLayoutAttributes
-{
-    NSInteger numberOfSections = [self.collectionView numberOfSections];
-    
-    UICollectionViewLayoutAttributes *firstObjectAttrs = nil;
-    for (NSInteger section = 0; section < numberOfSections; section++) {
-        NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-        
-        // use the header
-        firstObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                atIndexPath:firstObjectIndexPath];
-        
-        if (!firstObjectAttrs)
-        {
-            // use the footer
-            firstObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                    atIndexPath:firstObjectIndexPath];
-        }
-        
-        if (!firstObjectAttrs)
-        {
-            // use cell data
-            firstObjectAttrs = [self layoutAttributesForItemAtIndexPath:firstObjectIndexPath];
-        }
-        
-        if (firstObjectAttrs)
-        {
-            break;
-        }
-    }
-    
-    return firstObjectAttrs;
 }
 
 #pragma mark - Header and Footer
@@ -272,10 +238,10 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     NSIndexPath *indexPath = nil;
     UICollectionViewLayoutAttributes *attributes = nil;
     NSInteger numSections = [self.collectionView numberOfSections];
-    for(NSInteger section = 0; section < numSections; section++)
+    for (NSInteger section = 0; section < numSections; section++)
     {
         NSInteger numItems = [self.collectionView numberOfItemsInSection:section];
-        for(NSInteger item = 0; item < numItems; item++)
+        for (NSInteger item = 0; item < numItems; item++)
         {
             indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
@@ -342,13 +308,13 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     NSMutableArray *layoutAttributesForElementsInRect = [NSMutableArray arrayWithCapacity:self.layoutInformation.count];
     
-    for(NSString *key in self.layoutInformation)
+    for (NSString *key in self.layoutInformation)
     {
         NSDictionary *attributesDict = [self.layoutInformation objectForKey:key];
-        for(NSIndexPath *key in attributesDict)
+        for (NSIndexPath *key in attributesDict)
         {
             UICollectionViewLayoutAttributes *attributes = [attributesDict objectForKey:key];
-            if(CGRectIntersectsRect(rect, attributes.frame))
+            if (CGRectIntersectsRect(rect, attributes.frame))
             {
                 [layoutAttributesForElementsInRect addObject:attributes];
             }
@@ -370,7 +336,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     CGSize contentSize = [super collectionViewContentSize];
     if ([self shouldDisplayCollectionViewTopMainHeader])
     {
-        contentSize.height += [self referenceSizeForCollectionHeader].height;
+        contentSize.height += [self referenceSizeForCollectionTopMainHeader].height;
     }
     
     return contentSize;

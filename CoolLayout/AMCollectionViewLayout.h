@@ -5,6 +5,7 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const AMCollectionViewLayoutElementKindTopMainHeader;
+extern NSString * const AMCollectionViewLayoutElementKindListBackground;
 
 @protocol AMCollectionViewLayoutDelegate <UICollectionViewDelegateFlowLayout>
 @optional

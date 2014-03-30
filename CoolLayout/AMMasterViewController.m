@@ -24,6 +24,7 @@ static NSString * const cellIdentifier = @"CellIdentifier";
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTopMainHeaderView" bundle:nil] forSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier]];
+    [self.collectionView.collectionViewLayout registerNib:[UINib nibWithNibName:@"AMListBackgroundView" bundle:nil] forDecorationViewOfKind:AMCollectionViewLayoutElementKindListBackground];
     
     //[self seedData];
 }

@@ -97,6 +97,16 @@ static NSString * const cellIdentifier = @"CellIdentifier";
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return UIEdgeInsetsMake(150.f, 0.f, 0.f, 0.f);
+    }
+    
+    return UIEdgeInsetsZero;
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     return CGSizeMake(CGRectGetWidth(collectionView.frame), 60.f);

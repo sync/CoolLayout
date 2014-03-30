@@ -57,7 +57,7 @@ NSString * const AMCollectionViewLayoutElementKindHeader = @"AMCollectionViewLay
 
 - (BOOL)shouldDisplayCollectionViewHeader
 {
-    return (CGSizeEqualToSize([self referenceSizeForCollectionHeader], CGSizeZero) == NO);
+    return[self referenceSizeForCollectionHeader].height >= 0;
 }
 
 - (CGSize)referenceSizeForCollectionHeader
@@ -75,7 +75,7 @@ NSString * const AMCollectionViewLayoutElementKindHeader = @"AMCollectionViewLay
 {
     if ([self shouldDisplayCollectionViewHeader])
     {
-        return CGRectGetHeight([self layoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].frame);
+        return [self referenceSizeForCollectionHeader].height;
     }
     
     return 0;

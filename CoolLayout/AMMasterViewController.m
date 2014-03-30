@@ -8,7 +8,7 @@
 #import "NSDate+TimeAgo.h"
 #import "AMTopMainHeaderView.h"
 
-static const NSString *cellIdentifier = @"CellIdentifier";
+static NSString * const cellIdentifier = @"CellIdentifier";
 
 @implementation AMMasterViewController
 
@@ -19,7 +19,7 @@ static const NSString *cellIdentifier = @"CellIdentifier";
     AMCollectionViewLayout *layout = (AMCollectionViewLayout *)self.collectionViewLayout;
     layout.stickyHeader = YES;
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:(NSString *)cellIdentifier];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTopMainHeaderView" bundle:nil] forSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier]];
     

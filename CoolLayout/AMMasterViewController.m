@@ -78,6 +78,8 @@ static NSString * const cellIdentifier = @"CellIdentifier";
 {
     if ([kind isEqualToString:AMCollectionViewLayoutElementKindHeader])
     {
+        self.navigationItem.title = nil;
+        
         AMTopMainHeaderView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier] forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor purpleColor];
         return headerView;
@@ -93,6 +95,16 @@ static NSString * const cellIdentifier = @"CellIdentifier";
     }
     
     return nil;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([elementKind isEqualToString:AMCollectionViewLayoutElementKindHeader])
+    {
+        self.navigationItem.title = @"Main collection view header is off";
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

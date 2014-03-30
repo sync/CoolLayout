@@ -4,7 +4,7 @@
 
 #import "AMCollectionViewLayout.h"
 
-NSString * const AMCollectionViewLayoutElementKindHeader = @"AMCollectionViewLayoutElementKindHeader";
+NSString * const AMCollectionViewLayoutElementKindTopMainHeader = @"AMCollectionViewLayoutElementKindTopMainHeader";
 NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 
 @interface AMCollectionViewLayout ()
@@ -18,10 +18,10 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 - (UICollectionViewLayoutAttributes *)precomputedLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewLayoutAttributes *layoutAttributes = [super layoutAttributesForItemAtIndexPath:indexPath];
-    if ([self shouldDisplayCollectionViewHeader])
+    if ([self shouldDisplayCollectionViewTopMainHeader])
     {
         CGRect frame = layoutAttributes.frame;
-        frame.origin.y += [self elementsYDiffForCollectionViewHeader];
+        frame.origin.y += [self elementsYDiffForCollectionViewTopMainHeader];
         layoutAttributes.frame = frame;
     }
     
@@ -38,7 +38,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 - (UICollectionViewLayoutAttributes *)precomputedLayoutAttributesForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewLayoutAttributes *layoutAttributes = nil;
-    if ([kind isEqualToString:AMCollectionViewLayoutElementKindHeader])
+    if ([kind isEqualToString:AMCollectionViewLayoutElementKindTopMainHeader])
     {
         layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:kind withIndexPath:indexPath];
         layoutAttributes.zIndex = 2048;
@@ -46,9 +46,16 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
         CGRect attrributesFrame = CGRectZero;
         attrributesFrame.size = [self referenceSizeForCollectionHeader];
         
-        CGFloat yOrigin = self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
+        CGFloat yOrigin = 0;
+        if ([self hasStickyTopMainHeader])
+        {
+            yOrigin = self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
         
-        yOrigin += [self collectionViewHeaderIntersectionYDiff];
+            if ([self isTopMainHeaderCollapsible])
+            {
+                yOrigin += [self collectionViewTopMainHeaderIntersectionYDiff];
+            }
+        }
         
         attrributesFrame.origin.y = yOrigin;
         layoutAttributes.frame = attrributesFrame;
@@ -57,40 +64,41 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     {
         layoutAttributes = [super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
         
+        NSInteger section = layoutAttributes.indexPath.section;
+        NSInteger numberOfItemsInSection = [self.collectionView numberOfItemsInSection:section];
+        
+        NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+        NSIndexPath *lastObjectIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
+        
+        BOOL cellsExist = NO;
+        UICollectionViewLayoutAttributes *firstObjectAttrs = nil;
+        UICollectionViewLayoutAttributes *lastObjectAttrs = nil;
+        
+        if (numberOfItemsInSection > 0)
+        {
+            // use cell data if items exist
+            cellsExist = YES;
+            firstObjectAttrs = [self precomputedLayoutAttributesForItemAtIndexPath:firstObjectIndexPath];
+            lastObjectAttrs = [self precomputedLayoutAttributesForItemAtIndexPath:lastObjectIndexPath];
+        }
+        else
+        {
+            // else use the header and footer
+            cellsExist = NO;
+            firstObjectAttrs = [self precomputedLayoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                               atIndexPath:firstObjectIndexPath];
+            lastObjectAttrs = [self precomputedLayoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                                                                              atIndexPath:lastObjectIndexPath];
+        }
+        
+        CGPoint origin = layoutAttributes.frame.origin;
+        CGFloat topHeaderHeight = (cellsExist) ? CGRectGetHeight(layoutAttributes.frame) : 0;
+        
         if ([self hasStickyHeader])
         {
-            NSInteger section = layoutAttributes.indexPath.section;
-            NSInteger numberOfItemsInSection = [self.collectionView numberOfItemsInSection:section];
-            
-            NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-            NSIndexPath *lastObjectIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
-            
-            BOOL cellsExist = NO;
-            UICollectionViewLayoutAttributes *firstObjectAttrs = nil;
-            UICollectionViewLayoutAttributes *lastObjectAttrs = nil;
-            
-            if (numberOfItemsInSection > 0)
-            {
-                // use cell data if items exist
-                cellsExist = YES;
-                firstObjectAttrs = [self precomputedLayoutAttributesForItemAtIndexPath:firstObjectIndexPath];
-                lastObjectAttrs = [self precomputedLayoutAttributesForItemAtIndexPath:lastObjectIndexPath];
-            }
-            else
-            {
-                // else use the header and footer
-                cellsExist = NO;
-                firstObjectAttrs = [self precomputedLayoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                   atIndexPath:firstObjectIndexPath];
-                lastObjectAttrs = [self precomputedLayoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                                  atIndexPath:lastObjectIndexPath];
-            }
-            
-            CGPoint origin = layoutAttributes.frame.origin;
-            CGFloat topHeaderHeight = (cellsExist) ? CGRectGetHeight(layoutAttributes.frame) : 0;
             CGFloat bottomHeaderHeight = CGRectGetHeight(layoutAttributes.frame);
             
-            CGFloat elementsYdiff = MAX(0, [self elementsYDiffForCollectionViewHeader] + [self collectionViewHeaderIntersectionYDiff]);
+            CGFloat elementsYdiff = MAX(0, [self elementsYDiffForCollectionViewTopMainHeader] + [self collectionViewTopMainHeaderIntersectionYDiff]);
             
             CGFloat maxY = MAX(self.collectionView.contentOffset.y + self.collectionView.contentInset.top + elementsYdiff,
                                (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight)
@@ -99,30 +107,28 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
             CGFloat minY = MIN(maxY,
                                (CGRectGetMaxY(lastObjectAttrs.frame) - bottomHeaderHeight)
                                );
-            
             origin.y = minY;
-            
-            layoutAttributes.zIndex = 1024;
-            
-            layoutAttributes.frame = (CGRect){
-                .origin = origin,
-                .size = layoutAttributes.frame.size
-            };
         }
-        else if ([self shouldDisplayCollectionViewHeader])
+        else
         {
-            CGRect frame = layoutAttributes.frame;
-            frame.origin.y += [self elementsYDiffForCollectionViewHeader];
-            layoutAttributes.frame = frame;
+            origin.y = (CGRectGetMinY(firstObjectAttrs.frame) - topHeaderHeight);
         }
+        
+        layoutAttributes.zIndex = 1024;
+
+        
+        layoutAttributes.frame = (CGRect){
+            .origin = origin,
+            .size = layoutAttributes.frame.size
+        };
     }
     else
     {
         layoutAttributes = [super layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
-        if ([self shouldDisplayCollectionViewHeader])
+        if ([self shouldDisplayCollectionViewTopMainHeader])
         {
             CGRect frame = layoutAttributes.frame;
-            frame.origin.y += [self elementsYDiffForCollectionViewHeader];
+            frame.origin.y += [self elementsYDiffForCollectionViewTopMainHeader];
             layoutAttributes.frame = frame;
         }
     }
@@ -134,9 +140,9 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 {
     return self.layoutInformation[kind][indexPath];
 }
-#pragma mark - Collection View header
+#pragma mark - Collection View Top Main Header
 
-- (BOOL)shouldDisplayCollectionViewHeader
+- (BOOL)shouldDisplayCollectionViewTopMainHeader
 {
     return[self referenceSizeForCollectionHeader].height >= 0;
 }
@@ -144,17 +150,17 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 - (CGSize)referenceSizeForCollectionHeader
 {
     id <AMCollectionViewLayoutDelegate> delegate = (id<AMCollectionViewLayoutDelegate>)self.collectionView.delegate;
-    if ([delegate respondsToSelector:@selector(collectionView:referenceSizeForHeaderInlayout:)])
+    if ([delegate respondsToSelector:@selector(collectionView:referenceSizeForTopMainHeaderInLayout:)])
     {
-        return [delegate collectionView:self.collectionView referenceSizeForHeaderInlayout:self];
+        return [delegate collectionView:self.collectionView referenceSizeForTopMainHeaderInLayout:self];
     }
     
     return CGSizeZero;
 }
 
-- (CGFloat)elementsYDiffForCollectionViewHeader
+- (CGFloat)elementsYDiffForCollectionViewTopMainHeader
 {
-    if ([self shouldDisplayCollectionViewHeader])
+    if ([self shouldDisplayCollectionViewTopMainHeader])
     {
         return [self referenceSizeForCollectionHeader].height;
     }
@@ -162,21 +168,21 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     return 0;
 }
 
-- (CGFloat)collectionViewHeaderIntersectionYDiff
+- (CGFloat)collectionViewTopMainHeaderIntersectionYDiff
 {
     CGFloat yDiff = 0;
     
-    if ([self.collectionView numberOfSections] > 0 && ![self hasStickyCollectionHeader])
+    if ([self.collectionView numberOfSections] > 0 && [self isTopMainHeaderCollapsible])
     {
         UICollectionViewLayoutAttributes *cellOrHeaderAttributes = [self firstHeaderFooterOrCellLayoutAttributes];
         
         CGFloat minYelement = CGRectGetMinY(cellOrHeaderAttributes.frame);
         
         CGFloat topSectionInset = [self insetForSection:0].top;
-        CGFloat headerHeigh = CGRectGetHeight([self layoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].frame);
-        if (minYelement > topSectionInset + headerHeigh)
+        CGFloat headerHeight = CGRectGetHeight([self layoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].frame);
+        if (minYelement > topSectionInset + headerHeight)
         {
-            yDiff = topSectionInset + headerHeigh - minYelement;
+            yDiff = topSectionInset + headerHeight - minYelement;
         }
     }
     
@@ -283,9 +289,9 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
             // supplementary
             
             // main header
-            if (section == 0 && item == 0 && [self shouldDisplayCollectionViewHeader])
+            if (section == 0 && item == 0 && [self shouldDisplayCollectionViewTopMainHeader])
             {
-                attributes = [self precomputedLayoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader atIndexPath:indexPath];
+                attributes = [self precomputedLayoutAttributesForSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader atIndexPath:indexPath];
                 if (attributes)
                 {
                     [supplementaryMainHeaderInformation setObject:attributes forKey:indexPath];
@@ -325,7 +331,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
     }
     
     [layoutInformation setObject:cellInformation forKey:AMCollectionViewLayoutInformationCellKey];
-    [layoutInformation setObject:supplementaryMainHeaderInformation forKey:AMCollectionViewLayoutElementKindHeader];
+    [layoutInformation setObject:supplementaryMainHeaderInformation forKey:AMCollectionViewLayoutElementKindTopMainHeader];
     [layoutInformation setObject:supplementaryHeaderInformation forKey:UICollectionElementKindSectionHeader];
     [layoutInformation setObject:supplementaryFooterInformation forKey:UICollectionElementKindSectionFooter];
     
@@ -362,7 +368,7 @@ NSString * const AMCollectionViewLayoutInformationCellKey = @"cell";
 - (CGSize)collectionViewContentSize
 {
     CGSize contentSize = [super collectionViewContentSize];
-    if ([self shouldDisplayCollectionViewHeader])
+    if ([self shouldDisplayCollectionViewTopMainHeader])
     {
         contentSize.height += [self referenceSizeForCollectionHeader].height;
     }

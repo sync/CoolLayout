@@ -4,16 +4,18 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const AMCollectionViewLayoutElementKindHeader;
+extern NSString * const AMCollectionViewLayoutElementKindTopMainHeader;
 
 @protocol AMCollectionViewLayoutDelegate <UICollectionViewDelegateFlowLayout>
 @optional
-- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForHeaderInlayout:(UICollectionViewLayout*)collectionViewLayout;
+- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForTopMainHeaderInLayout:(UICollectionViewLayout*)collectionViewLayout;
 @end
 
 @interface AMCollectionViewLayout : UICollectionViewFlowLayout
 
-@property (nonatomic, assign, getter = hasStickyCollectionHeader) BOOL stickyCollectionHeader;
+@property (nonatomic, assign, getter = hasStickyTopMainHeader) BOOL stickyTopMainHeader;
+@property (nonatomic, assign, getter = isTopMainHeaderCollapsible) BOOL topMainHeaderCollapsible;
+
 @property (nonatomic, assign, getter = hasStickyHeader) BOOL stickyHeader;
 
 @end

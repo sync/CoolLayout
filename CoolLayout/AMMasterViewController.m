@@ -17,11 +17,13 @@ static NSString * const cellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     
     AMCollectionViewLayout *layout = (AMCollectionViewLayout *)self.collectionViewLayout;
+    layout.stickyTopMainHeader = YES;
+    layout.topMainHeaderCollapsible = YES;
     layout.stickyHeader = YES;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"AMTimeAgoHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[AMTimeAgoHeaderView defaultReuseIdentifier]];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"AMTopMainHeaderView" bundle:nil] forSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"AMTopMainHeaderView" bundle:nil] forSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier]];
     
     //[self seedData];
 }
@@ -76,11 +78,11 @@ static NSString * const cellIdentifier = @"CellIdentifier";
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if ([kind isEqualToString:AMCollectionViewLayoutElementKindHeader])
+    if ([kind isEqualToString:AMCollectionViewLayoutElementKindTopMainHeader])
     {
         self.navigationItem.title = nil;
         
-        AMTopMainHeaderView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:AMCollectionViewLayoutElementKindHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier] forIndexPath:indexPath];
+        AMTopMainHeaderView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:AMCollectionViewLayoutElementKindTopMainHeader withReuseIdentifier:[AMTopMainHeaderView defaultReuseIdentifier] forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor purpleColor];
         return headerView;
     }
@@ -101,7 +103,7 @@ static NSString * const cellIdentifier = @"CellIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath
 {
-    if ([elementKind isEqualToString:AMCollectionViewLayoutElementKindHeader])
+    if ([elementKind isEqualToString:AMCollectionViewLayoutElementKindTopMainHeader])
     {
         self.navigationItem.title = @"Main collection view header is off";
     }
@@ -126,7 +128,7 @@ static NSString * const cellIdentifier = @"CellIdentifier";
 
 #pragma mark - AMCollectionViewLayoutDelegate 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForHeaderInlayout:(UICollectionViewLayout*)collectionViewLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView referenceSizeForTopMainHeaderInLayout:(UICollectionViewLayout*)collectionViewLayout
 {
     return CGSizeMake(CGRectGetWidth(collectionView.frame), 40.f);
 }
